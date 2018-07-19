@@ -57,7 +57,7 @@ def create_one_hot(file):
     print('Start converting raw data into onehot data...')
 
     with open(file, 'r', encoding='utf-8') as f:
-        all_feature_li = []
+        all_feature_li = list()
         line_split_li = [i.strip().split(',') for i in f]
 
         for i in line_split_li:
@@ -79,10 +79,8 @@ def create_one_hot(file):
             # print(feature_num_li)
             inner_li = list()
             for num in range(len(all_feature_set_li)):
-                if num in feature_num_li:
-                    inner_li.append(1)
-                else:
-                    inner_li.append(0)
+                inner_li.append(1) if num in feature_num_li else inner_li.append(0)
+
             out_li.append(inner_li)
 
         out_array = np.array(out_li)
