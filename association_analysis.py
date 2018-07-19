@@ -6,6 +6,9 @@ import pandas as pd
 def calculate(data_vector):
     """计算支持度，置信度，提升度
     """
+    print('=' * 50)
+    print('Calculating...')
+
     n_samples, n_features = data_vector.shape
     print('特征数: ', n_features)
     print('样本数: ', n_samples)
@@ -50,10 +53,12 @@ def calculate(data_vector):
 def create_one_hot(file):
     """将实体数据转换成：0，1数据类型，类似于词袋模型
     """
+    print('=' * 50)
+    print('Start converting raw data into onehot data...')
+
     with open(file, 'r', encoding='utf-8') as f:
         all_feature_li = []
-        content_li = f.readlines()
-        line_split_li = [i.strip().split(',') for i in content_li]
+        line_split_li = [i.strip().split(',') for i in f]
 
         for i in line_split_li:
             for feature in i:
@@ -88,15 +93,30 @@ def create_one_hot(file):
 def convert_to_sample(feature_dict, s, c, l):
     """把0，1，2，3，... 等字母代表的feature，转换成实体
     """
+    print('=' * 50)
+    print('Start converting to the required sample format...')
     # print(feature_dict)
     feature_mirror_dict = dict()
     for k, v in feature_dict.items():
         feature_mirror_dict[v] = k
     # print(feature_mirror_dict)
 
-    support_sample_li = [[feature_mirror_dict[i[0][0]], feature_mirror_dict[i[0][1]], i[1]] for i in s]
-    confidence_sample_li = [[feature_mirror_dict[i[0][0]], feature_mirror_dict[i[0][1]], i[1]] for i in c]
-    lift_sample_li = [[feature_mirror_dict[i[0][0]], feature_mirror_dict[i[0][1]], i[1]] for i in l]
+    support_sample_li = [[feature_mirror_dict[i[0][0]], feature_mirror_dict[i[0][1]], round(i[1], 3)] for i in s]
+    confidence_sample_li = [[feature_mirror_dict[i[0][0]], feature_mirror_dict[i[0][1]], round(i[1], 3)] for i in c]
+    lift_sample_li = [[feature_mirror_dict[i[0][0]], feature_mirror_dict[i[0][1]], round(i[1], 3)] for i in l]
+
+    # 写入文件
+    with open('./data/output_data/support.data', 'w', encoding='utf-8') as fs, \
+            open('./data/output_data/confidence.data', 'w', encoding='utf-8') as fc, \
+            open('./data/output_data/lift.data', 'w', encoding='utf-8') as fl:
+        for s in support_sample_li:
+            fs.write(str(s) + '\n')
+
+        for c in confidence_sample_li:
+            fc.write(str(c) + '\n')
+
+        for l in lift_sample_li:
+            fl.write(str(l) + '\n')
 
     return support_sample_li, confidence_sample_li, lift_sample_li
 
@@ -104,8 +124,8 @@ def convert_to_sample(feature_dict, s, c, l):
 if __name__ == '__main__':
     # 配置路径，如果数据没有经过处理，就配置origin_data_file
     # 如果数据已经经过处理，为0，1数据，就可以直接配置ready_data_file
-    origin_data_file = './data/origin.data'
-    ready_data_file = './data/sample.data'
+    origin_data_file = './data/input_data/origin.data'
+    ready_data_file = './data/input_data/sample.data'
 
     # 如果数据已经构建好了，可以直接读取数组进行计算
     # data = pd.read_csv(ready_data_file)
