@@ -59,7 +59,6 @@ def create_one_hot(file):
     with open(file, 'r', encoding='utf-8') as f:
         all_feature_li = list()
         line_split_li = [i.strip().split(',') for i in f]
-
         for i in line_split_li:
             for feature in i:
                 all_feature_li.append(feature)
@@ -77,9 +76,7 @@ def create_one_hot(file):
         for j in line_split_li:
             feature_num_li = [feature_dict[i] for i in j]
             # print(feature_num_li)
-            inner_li = list()
-            for num in range(len(all_feature_set_li)):
-                inner_li.append(1) if num in feature_num_li else inner_li.append(0)
+            inner_li = [1 if num in feature_num_li else 0 for num in range(len(all_feature_set_li))]
 
             out_li.append(inner_li)
 
