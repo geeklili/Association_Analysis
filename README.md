@@ -50,7 +50,9 @@
 
 ### association_analysis_pro.py 文件是升级版关联分析的计算，适合大数据
 文件准备的类型为列表：
-    ['html', 'redirect', 'seo', 'google-search']
-    ['prolog', 'swi-prolog']
-    ['javascript', 'math', 'colors', 'html5-canvas']
-    ['c#', 'asp.net-mvc']
+```
+['html', 'redirect', 'seo', 'google-search']
+['prolog', 'swi-prolog']
+['javascript', 'math', 'colors', 'html5-canvas']
+['c#', 'asp.net-mvc']
+```
