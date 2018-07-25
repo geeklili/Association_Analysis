@@ -22,6 +22,7 @@
     * 提升度表示含有X的条件下，同时含有Y的概率，与不含X的条件下却含Y的概率之比。
     * Lift(X→Y) = P(Y|X) / P(Y)
 
+### association_analysis.py
 ### 表头的水果顺序
 ```
 {'桃子': 0, '桔子': 1, '榴莲': 2, '甘蔗': 3, '芒果': 4, '苹果': 5, '草莓': 6, '香蕉': 7}
@@ -46,3 +47,10 @@
 桔子,桃子,苹果,香蕉
 桔子,香蕉,苹果,榴莲
 ```
+
+### association_analysis_pro.py 文件是升级版关联分析的计算，适合大数据
+文件准备的类型为列表：
+    ['html', 'redirect', 'seo', 'google-search']
+    ['prolog', 'swi-prolog']
+    ['javascript', 'math', 'colors', 'html5-canvas']
+    ['c#', 'asp.net-mvc']
